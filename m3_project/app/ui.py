@@ -1,7 +1,6 @@
-from objectpack.ui import BaseEditWindow, make_combo_box
+from objectpack.ui import *
 from m3_ext.ui import all_components as ext
 
-from app.models import *
 
 
 class UserAddWindow(BaseEditWindow):
@@ -19,7 +18,7 @@ class UserAddWindow(BaseEditWindow):
             label='last login',
             name='last_login',
             format='d.m.Y',
-            allow_blank=True,
+            allow_blank=False,
             anchor='100%')
 
         self.field__superuser = ext.ExtCheckBox(
@@ -88,42 +87,4 @@ class UserAddWindow(BaseEditWindow):
 
     def set_params(self, params):
         super(UserAddWindow, self).set_params(params)
-        self.height = 'auto'
-
-
-class PermissionAddWindow(BaseEditWindow):
-
-    def _init_components(self):
-        super(PermissionAddWindow, self)._init_components()
-
-        self.field__name = ext.ExtStringField(
-            label='name',
-            name='name',
-            allow_blank=False,
-            anchor='100%')
-
-        self.field__content = make_combo_box(
-            label='content type',
-            name='content_type',
-            allow_blank=False,
-            anchor='100%',
-            data=Permission.content_type
-        )
-
-        self.field__codename = ext.ExtStringField(
-            label='codename',
-            name='codename',
-            allow_blank=False,
-            anchor='100%')
-
-    def _do_layout(self):
-        super(PermissionAddWindow, self)._do_layout()
-        self.form.items.extend((
-            self.field__name,
-            self.field__content,
-            self.field__codename,
-        ))
-
-    def set_params(self, params):
-        super(PermissionAddWindow, self).set_params(params)
         self.height = 'auto'
